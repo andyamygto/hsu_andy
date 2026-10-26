@@ -37,6 +37,7 @@ content:
       - name: body
         label: 首頁的自我介紹
         type: code
+        options: { format: markdown }
 
   - name: research
     label: 研究主題
@@ -141,6 +142,7 @@ content:
         label: 內文
         description: "Markdown。數學用 $...$ 或 $$...$$；區塊用 > [!def] 標題。"
         type: code
+        options: { format: markdown }
       - name: figures
         label: 圖
         description: 上傳的圖會依序顯示在文末。想放在文中，就在內文寫 ![圖說](檔名)。
@@ -178,7 +180,7 @@ content:
       - { name: date, label: 日期, type: date }
       - { name: tags, label: 標籤, type: string, list: true }
       - { name: draft, label: 草稿, type: boolean, default: true }
-      - { name: body, label: 內文, type: code }
+      - { name: body, label: 內文, type: code, options: { format: markdown } }
       - name: figures
         label: 圖
         type: object
@@ -194,4 +196,4 @@ content:
     path: content/about.md
     fields:
       - { name: title, type: string, hidden: true }
-      - { name: body, label: 內容, type: code }
+      - { name: body, label: 內容, type: code, options: { format: markdown } }
