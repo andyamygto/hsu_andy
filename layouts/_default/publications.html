@@ -3,15 +3,20 @@
 <div class="prose">{{ .Content }}</div>
 
 {{- $pubs := site.Data.publications }}
-<ol class="pubs" reversed>
-  {{- range $pubs }}
-  <li>
-    {{ replace .authors "C.-E. Hsu" "<b>C.-E. Hsu</b>" | safeHTML }},
-    “{{ .title | safeHTML }},”
-    <i>{{ .venue }}</i> ({{ .year }}).
-    {{- with .doi }} <a href="https://doi.org/{{ . }}">[doi]</a>{{ end }}
-    {{- with .arxiv }} <a href="https://arxiv.org/abs/{{ . }}">[arXiv]</a>{{ end }}
-  </li>
+{{- $keys := slice }}
+{{- range site.Data.research.themes }}{{ $keys = $keys | append .key }}{{ end }}
+{{- range $i, $key := $keys }}
+  {{- with where $pubs "category" $key }}
+  <h2 class="group accent-{{ mod $i 3 }}" id="{{ $key }}">{{ partial "topic-title.html" $key }}</h2>
+  <ol class="pubs">
+    {{- range . }}{{ partial "pub.html" . }}{{ end }}
+  </ol>
   {{- end }}
-</ol>
+{{- end }}
+{{- with where $pubs "category" "not in" $keys }}
+  <h2 id="other">Other</h2>
+  <ol class="pubs">
+    {{- range . }}{{ partial "pub.html" . }}{{ end }}
+  </ol>
+{{- end }}
 {{ end }}

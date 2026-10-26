@@ -1,7 +1,8 @@
 ---
+slug: example-note
 title: "範例筆記（不會公開）"
 date: 2026-10-26
-topic: "Examples"
+topic: "methods"
 tags: [template]
 draft: true
 ---

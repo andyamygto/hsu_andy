@@ -1,112 +1,63 @@
-# Andy Hsu — blog & notes
+# Andy Hsu — website
 
 網址：<https://andyamygto.github.io/hsu_andy/>
-推到 `master` 之後，GitHub Actions 會自動更新網站，大約一分鐘。
 
-```
-content/notes/     整理過的筆記，依 topic 分組
-content/posts/     文章，依日期排列
-content/about.md   About 頁
-data/publications.yaml   論文清單
-data/katex_macros.yaml   LaTeX 巨集
-static/files/      其他要放上網的檔案 → /hsu_andy/files/檔名
-```
+整個網站都在瀏覽器裡編輯，電腦和 iPad 都可以：**<https://app.pagescms.org>**
 
-一篇筆記 = 一個資料夾：
+## 第一次設定（只做一次）
 
-```
-content/notes/gw-plasmon-pole/
-├── index.md     內文
-├── bands.png    圖
-└── deriv.pdf    手寫推導（iPad 匯出的 PDF）
-```
+1. 到 GitHub 這個 repo：Settings → Pages → Source 選 **GitHub Actions**。
+2. 打開 <https://app.pagescms.org>，用 GitHub 登入，依畫面指示把 Pages CMS 安裝到 `hsu_andy` 這個 repo。
+3. 選 `hsu_andy` 和 `master` 分支，左邊就會出現網站的各個部分。
 
-`content/notes/example-note/` 是完整範例（草稿，不會公開），直接打開對照最快。
+## 左邊選單
 
----
-
-## 用 vim 寫
-
-```bash
-bin/new note gw-plasmon-pole "GW plasmon-pole 模型"   # 建立資料夾和開頭，直接用 vim 打開
-# 寫完
-git add -A && git commit -m "GW plasmon-pole 筆記" && git push
-```
-
-`bin/new` 產生的檔案預設是 `draft: true`。要公開時，把那行刪掉。
-
-在 `~/.vimrc` 加一行，就能用縮寫打區塊：
-
-```vim
-source ~/hsu_andy/tools/notes.vim
-```
-
-| 打 | 變成 |
+| 項目 | 改什麼 |
 |---|---|
-| `;def` | `> [!def]` 定義 |
-| `;res` | `> [!result]` 結果 |
-| `;der` | `> [!derive]-` 推導（預設收合） |
-| `;par` | `> [!param]` 參數 |
-| `;warn` | `> [!warn]` 注意 |
-| `;idea` `;todo` `;ref` | 想法、待辦、參考 |
+| 個人資料 | 名字、職位、連結、CV PDF |
+| 首頁介紹 | 首頁那段自我介紹 |
+| 研究主題 | 首頁 Research 區塊：主題、重點、圖、亮點 |
+| 論文 | 論文清單；選「分類」後，會出現在首頁對應的主題下（每個主題最多 3 篇） |
+| 筆記／文章 | 新增、編輯；可以上傳圖和 PDF |
+| About 頁 | About 頁內容 |
 
-區塊裡按 Enter，下一行會自動補上 `> `。要結束區塊，就在多出來的 `> ` 那行按 `Ctrl-U` 清掉。
+按 **Save** 就會存到 GitHub，大約一分鐘後網站更新。
 
-## 只需要會這些 Markdown
+## 寫筆記
+
+- **新增：** 筆記 → **Add an entry**，填標題、網址名稱（英文，例如 `gw-plasmon-pole`）和分類。筆記頁依研究主題分組。
+- **草稿：** 預設勾著「草稿」，這時不會出現在網站上。寫好再取消勾選，然後 Save。
+  - 草稿的原始檔在 GitHub 上看得到，不想公開的內容別放進去。
+- **圖：** 在「圖」欄位上傳，會依序顯示在文末。想放在文中某處，就在內文寫 `![圖說](檔名.png)`。
+- **PDF：** 在「附件」欄位上傳。只有附件、沒有內文時，PDF 會直接顯示在頁面上。
+
+內文是 Markdown：
 
 ````markdown
-## 小標題                      ← 兩個 # ；三個 # 是更小的標題
+## 小標題
 
-一般段落。空一行就是新段落。
-**粗體**　*斜體*　`程式碼或參數名`
+一般段落。空一行是新段落。**粗體**　`參數名`
 
 - 條列
-- 條列
 
-$E = mc^2$                     ← 行內數學
+$E = mc^2$                 行內數學
+$$ \Sigma = iGW $$         獨立一行
 
-$$                             ← 獨立一行的數學
-\Sigma = iGW
-$$
+> [!def] 準粒子能量         區塊：def 定義 / result 結果 / derive 推導 / param 參數
+> 每一行開頭都是 >            warn 注意 / idea 想法 / todo 待辦 / ref 參考
 
-> [!def] 標題                  ← 區塊：第一行寫種類和標題
-> 內容，每一行開頭都是 >
-> 可以放數學、條列、程式碼
+> [!derive]- 推導           加 - 預設收合
 
-> [!derive]- 推導              ← 加 - 預設收合，點了才展開
-
-![圖的說明](bands.png)          ← 圖片，檔案放同一個資料夾
-[下載推導](deriv.pdf)           ← 連結到檔案
-
-```fortran                     ← 程式碼，標上語言就會上色
+```fortran
 do i = 1, n
 end do
 ```
 ````
 
-數學巨集（`\vb{k}`、`\abs{x}`、`\Tr`、`\dd`、`\expval{x}`）在 `data/katex_macros.yaml`，可以自己加。
+範例：筆記 → 範例筆記。數學巨集（`\vb{k}`、`\abs{x}`、`\Tr`、`\dd`、`\expval{x}`）在 `data/katex_macros.yaml`。
 
-## 用 iPad
+## 技術說明
 
-**手寫推導 → PDF**
-1. 用任何能匯出 PDF 的手寫 app 寫（內建的備忘錄也可以），匯出 PDF 存到「檔案」。
-2. Safari 打開 GitHub 上這個 repo，進到該筆記的資料夾 → **Add file → Upload files**，選 PDF，Commit。
-3. 頁面最下方會自動列出 PDF。如果 `index.md` 只有開頭、沒有內文，PDF 會直接顯示在頁面上。
-
-**在 iPad 上打字**
-- 小修改：在 GitHub 網頁打開檔案，按鉛筆圖示就能編輯。
-- 新的筆記：**Add file → Create new file**，檔名打 `content/notes/資料夾名稱/index.md`，開頭照下面寫：
-
-  ```yaml
-  ---
-  title: "標題"
-  date: 2026-10-26
-  topic: "GW"
-  ---
-  ```
-
-## 其他
-
-- 目錄：有三個以上小標題時自動出現；加 `toc: false` 可以關掉。
-- 本機預覽（要先裝 Hugo）：`hugo server -D`，打開 http://localhost:1313/hsu_andy/
-- 第一次上線（只做一次）：Settings → Pages → Source 選 **GitHub Actions**。
+- 網站用 [Hugo](https://gohugo.io) 產生，`.github/workflows/hugo.yml` 在每次 push 到 `master` 時建置和部署。
+- Pages CMS 的設定在 `.pages.yml`；上傳的檔案放在 `static/uploads/`。
+- 本機預覽：`hugo server -D`，打開 http://localhost:1313/hsu_andy/

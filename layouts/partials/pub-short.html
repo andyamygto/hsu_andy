@@ -1,0 +1,8 @@
+{{- /* One-line paper: title linked, venue and year. */ -}}
+{{- $url := "" }}
+{{- with .arxiv }}{{ $url = printf "https://arxiv.org/abs/%s" . }}{{ end }}
+{{- with .doi }}{{ $url = printf "https://doi.org/%s" . }}{{ end }}
+<li>
+  {{- if $url }}<a href="{{ $url }}">{{ .title | safeHTML }}</a>{{ else }}{{ .title | safeHTML }}{{ end }}
+  <span class="pub-where">· {{ index (split .venue ",") 0 }} {{ .year }}{{ with .note }} · {{ . }}{{ end }}</span>
+</li>

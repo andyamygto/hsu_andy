@@ -1,0 +1,45 @@
+heading: Correlated excitons in quantum materials
+subheading: Moiré many-body physics, external control and ultrafast response
+themes:
+  - key: moire
+    place: main
+    title: Correlated excitons in moiré TMDs
+    points:
+      - Wigner crystalline excitons and interaction-driven phases
+      - Large-scale simulations of moiré excitons
+    image: /uploads/research-moire-wce.png
+    caption: From a free electron–hole pair to a strongly correlated Wigner crystalline exciton.
+  - key: tunable
+    place: main
+    title: Tunable excitons in quantum materials
+    points:
+      - Carrier-density-dependent screening and spin–orbit effects
+      - Electric-field tuning of exciton energies and optical response
+    image: /uploads/research-moire-lattice.png
+    caption: Atomic structure of a TMD moiré superlattice.
+  - key: ultrafast
+    place: main
+    title: Ultrafast nonlinear optics
+    points:
+      - Real-time exciton dynamics with TD-aGW
+      - Non-equilibrium exciton dynamics
+      - Nonlinear optical response
+    image: /uploads/research-tdagw-phonons.png
+    caption: Excited-carrier populations from TD-aGW at −50, 0 and 50 fs, with and without phonons.
+  - key: methods
+    place: methods
+    title: Methods and large-scale computing
+    points:
+      - Many-body perturbation theory (GW, BSE, GW perturbation theory)
+      - First-principles calculations on exascale supercomputers
+    image: ""
+    caption: ""
+  - key: earlier
+    place: earlier
+    title: Electron–phonon coupling, charge-density waves and 2D materials
+    points: []
+    image: ""
+    caption: ""
+highlights:
+  - "Moiré excitons in generalized Wigner crystals, [PNAS 2026](https://doi.org/10.1073/pnas.2531259123) (co-first author)"
+  - "Member of a [2025 Gordon Bell Prize finalist](https://arxiv.org/abs/2509.23018) team"

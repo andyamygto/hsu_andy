@@ -1,25 +1,98 @@
 {{ define "main" }}
-<section class="intro">
-  <h1>{{ site.Params.name }}</h1>
-  <p class="tagline">{{ site.Params.tagline }}</p>
-  <p class="links">
-    <a href="mailto:{{ site.Params.email }}">email</a> /
-    <a href="{{ site.Params.scholar }}">scholar</a> /
-    <a href="{{ site.Params.orcid }}">orcid</a> /
-    <a href="{{ site.Params.github }}">github</a>
-  </p>
-  {{ .Content }}
+{{- $me := site.Data.profile }}
+{{- $r := site.Data.research }}
+{{- $pubs := site.Data.publications }}
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    {{- with $me.photo }}
+    <img class="portrait" src="{{ partial "asset-url.html" . }}" alt="{{ $me.name }}" width="220" height="220">
+    {{- end }}
+    <div class="hero-text">
+      <h1>{{ $me.name }}</h1>
+      <p class="role">{{ $me.tagline }}</p>
+      {{- with $me.position }}
+      <p class="position">{{ replace . "\n" "<br>" | safeHTML }}</p>
+      {{- end }}
+      <p class="contact">
+        <a href="mailto:{{ $me.email }}">Email</a>
+        {{- with $me.cv }}<a href="{{ partial "asset-url.html" . }}">CV</a>{{ end }}
+        {{- with $me.scholar }}<a href="{{ . }}">Google Scholar</a>{{ end }}
+        {{- with $me.orcid }}<a href="{{ . }}">ORCID</a>{{ end }}
+        {{- with $me.github }}<a href="{{ . }}">GitHub</a>{{ end }}
+      </p>
+      <div class="bio">{{ .Content }}</div>
+    </div>
+  </div>
 </section>
 
-{{- $recent := where site.RegularPages "Section" "in" (slice "posts" "notes") }}
-<section>
-  <h2>Recent</h2>
-  {{- with first 15 $recent.ByDate.Reverse }}
-  <ul class="entries">
-    {{- range . }}{{ partial "entry.html" (dict "page" . "kind" true) }}{{ end }}
-  </ul>
-  {{- else }}
-  <p class="quiet">Nothing here yet.</p>
-  {{- end }}
+<section class="panel">
+  <div class="wrap">
+    {{- with $r.heading }}<h2 class="panel-title">{{ . }}</h2>{{ end }}
+    {{- with $r.subheading }}<p class="panel-sub">{{ . }}</p>{{ end }}
+
+    {{- range $i, $t := where $r.themes "place" "main" }}
+    {{- $papers := where $pubs "category" $t.key }}
+    <article class="theme accent-{{ mod $i 3 }}" id="{{ $t.key }}">
+      <div class="theme-num">{{ printf "%02d" (add $i 1) }}</div>
+      <div class="theme-body">
+        <h3>{{ $t.title }}</h3>
+        {{- with $t.points }}
+        <ul class="points">{{ range . }}<li>{{ $.RenderString . }}</li>{{ end }}</ul>
+        {{- end }}
+        {{- with $papers }}
+        <ul class="papers">{{ range first 3 . }}{{ partial "pub-short.html" . }}{{ end }}</ul>
+        {{- end }}
+      </div>
+      {{- with $t.image }}
+      <figure class="theme-fig">
+        <img src="{{ partial "asset-url.html" . }}" alt="{{ $t.caption | default $t.title }}" loading="lazy">
+        {{- with $t.caption }}<figcaption>{{ . | $.RenderString }}</figcaption>{{ end }}
+      </figure>
+      {{- end }}
+    </article>
+    {{- end }}
+
+    <div class="panel-foot">
+      {{- range $t := where $r.themes "place" "methods" }}
+      <div class="foot-methods">
+        <h4 class="label">Methods</h4>
+        {{- with $t.points }}<ul class="plain">{{ range . }}<li>{{ $.RenderString . }}</li>{{ end }}</ul>{{ end }}
+        {{- with where $pubs "category" $t.key }}
+        <ul class="papers">{{ range first 3 . }}{{ partial "pub-short.html" . }}{{ end }}</ul>
+        {{- end }}
+      </div>
+      {{- end }}
+      {{- with $r.highlights }}
+      <div class="foot-impact">
+        <h4 class="label">Selected impact</h4>
+        <ul class="plain">{{ range . }}<li>{{ $.RenderString . }}</li>{{ end }}</ul>
+      </div>
+      {{- end }}
+    </div>
+  </div>
 </section>
+
+<div class="wrap home-lower">
+  {{- range $t := where $r.themes "place" "earlier" }}
+  {{- with where $pubs "category" $t.key }}
+  <section>
+    <h2 class="section-label">Earlier work</h2>
+    <p class="earlier-title">{{ $t.title }}</p>
+    <ul class="papers">{{ range first 4 . }}{{ partial "pub-short.html" . }}{{ end }}</ul>
+    <p class="more"><a href="{{ "publications/" | relURL }}#{{ $t.key }}">All publications →</a></p>
+  </section>
+  {{- end }}
+  {{- end }}
+
+  {{- $recent := where site.RegularPages "Section" "in" (slice "posts" "notes") }}
+  {{- with first 6 $recent.ByDate.Reverse }}
+  <section>
+    <h2 class="section-label">Recent notes &amp; posts</h2>
+    <ul class="entries">
+      {{- range . }}{{ partial "entry.html" (dict "page" . "kind" true) }}{{ end }}
+    </ul>
+  </section>
+  {{- end }}
+</div>
 {{ end }}

@@ -5,15 +5,6 @@ hasCJKLanguage = true
 enableGitInfo = true
 enableRobotsTXT = true
 
-[params]
-  name = "Chih-En (Andy) Hsu"
-  tagline = "Condensed matter theory · DFT, GW, BSE, electron–phonon"
-  email = "andyamygto@gmail.com"
-  scholar = "https://scholar.google.com/citations?user=90kC41IAAAAJ"
-  orcid = "https://orcid.org/0000-0002-9974-8611"
-  github = "https://github.com/andyamygto"
-
-
 [menus]
   [[menus.main]]
     name = "Posts"
@@ -36,6 +27,8 @@ enableRobotsTXT = true
   tag = "tags"
 
 [markup]
+  [markup.goldmark.parser]
+    wrapStandAloneImageWithinParagraph = false
   [markup.goldmark.renderer]
     unsafe = true
   [markup.goldmark.extensions.passthrough]
@@ -51,3 +44,4 @@ enableRobotsTXT = true
 
 [frontmatter]
   lastmod = ["lastmod", ":git", "date"]
+

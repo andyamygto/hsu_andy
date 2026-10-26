@@ -3,14 +3,19 @@
 {{ .Content }}
 
 {{- if eq .Section "notes" }}
-  {{- /* Notes are grouped by the `topic` front-matter field. */ -}}
-  {{- range .Pages.GroupByParam "topic" }}
-  <h2>{{ .Key }}</h2>
+  {{- /* Notes are grouped by `topic`, in the order of the research themes. */ -}}
+  {{- $keys := slice }}
+  {{- range site.Data.research.themes }}{{ $keys = $keys | append .key }}{{ end }}
+  {{- range $keys }}
+    {{- $key := . }}
+    {{- with where $.Pages "Params.topic" $key }}
+  <h2>{{ partial "topic-title.html" $key }}</h2>
   <ul class="entries">
-    {{- range .Pages.ByTitle }}{{ partial "entry.html" (dict "page" .) }}{{ end }}
+    {{- range .ByTitle }}{{ partial "entry.html" (dict "page" .) }}{{ end }}
   </ul>
+    {{- end }}
   {{- end }}
-  {{- with where .Pages "Params.topic" "==" nil }}
+  {{- with where .Pages "Params.topic" "not in" $keys }}
   <h2>Other</h2>
   <ul class="entries">
     {{- range .ByTitle }}{{ partial "entry.html" (dict "page" .) }}{{ end }}

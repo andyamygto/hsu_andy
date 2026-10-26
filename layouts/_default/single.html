@@ -21,26 +21,43 @@
   </details>
   {{- end }}
 
-  {{- $pdfs := .Resources.Match "**.pdf" }}
-  {{- /* A note that is only a PDF: show the PDF on the page. */ -}}
-  {{- if and $pdfs (not (trim (string .RawContent) " \n\r\t")) }}
-  {{- with index $pdfs 0 }}
-  <object class="pdf" data="{{ .RelPermalink }}" type="application/pdf">
-    <p><a href="{{ .RelPermalink }}">Open {{ .Name }}</a></p>
+  {{- /* Files: PDFs in the page folder, plus anything uploaded in the CMS "attachments" field. */ -}}
+  {{- $files := slice }}
+  {{- range .Resources.Match "**.pdf" }}{{ $files = $files | append (dict "url" .RelPermalink "name" .Name) }}{{ end }}
+  {{- range .Params.attachments }}{{ $files = $files | append (dict "url" (partial "asset-url.html" .) "name" (path.Base .)) }}{{ end }}
+  {{- $empty := not (trim (string .RawContent) " \n\r\t") }}
+
+  {{- /* A note with no text but a PDF: show the PDF on the page. */ -}}
+  {{- if and $empty $files }}
+  {{- with index $files 0 }}
+  <object class="pdf" data="{{ .url }}" type="application/pdf">
+    <p><a href="{{ .url }}">Open {{ .name }}</a></p>
   </object>
   {{- end }}
   {{- end }}
 
   <div class="prose">
     {{ .Content }}
+
+    {{- /* Figures uploaded in the CMS that the text does not already show. */ -}}
+    {{- range .Params.figures }}
+    {{- if and .image (not (strings.Contains $.RawContent (path.Base .image))) }}
+    <figure>
+      <img src="{{ partial "asset-url.html" .image }}" alt="{{ .caption | plainify }}" loading="lazy">
+      {{- with .caption }}
+      <figcaption>{{ . | $.RenderString }}</figcaption>
+      {{- end }}
+    </figure>
+    {{- end }}
+    {{- end }}
   </div>
 
-  {{- with $pdfs }}
+  {{- with $files }}
   <section class="files">
     <h2>Files</h2>
     <ul>
       {{- range . }}
-      <li><a href="{{ .RelPermalink }}">{{ .Name }}</a></li>
+      <li><a href="{{ .url }}">{{ .name }}</a></li>
       {{- end }}
     </ul>
   </section>
