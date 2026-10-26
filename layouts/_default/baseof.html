@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="{{ site.LanguageCode }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ site.Params.name }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+  {{- with .Description | default .Summary | plainify | truncate 160 }}
+  <meta name="description" content="{{ . }}">
+  {{- end }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  {{- with resources.Get "css/main.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+  {{- end }}
+  <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+  {{- with .OutputFormats.Get "rss" }}
+  <link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">
+  {{- end }}
+</head>
+<body>
+  <header class="top">
+    <a class="home-link" href="{{ "/" | relURL }}">{{ site.Title }}</a>
+    <nav>
+      {{- $here := . }}
+      {{- range site.Menus.main }}
+      <a href="{{ .URL }}"{{ if or ($here.IsMenuCurrent "main" .) ($here.HasMenuCurrent "main" .) }} class="here"{{ end }}>{{ .Name }}</a>
+      {{- end }}
+    </nav>
+  </header>
+
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  <footer class="bottom">
+    {{ site.Params.name }}, {{ now.Year }}
+    · <a href="{{ "index.xml" | relURL }}">RSS</a>
+    · <a href="https://github.com/andyamygto/hsu_andy">source</a>
+  </footer>
+</body>
+</html>

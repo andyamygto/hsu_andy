@@ -1,0 +1,10 @@
+{{- /* One line in a list: date, title, and (optionally) which section it lives in. */ -}}
+{{- $p := .page -}}
+<li>
+  <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date.Format "2006-01-02" }}</time>
+  <span>
+    <a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>
+    {{- if .kind }} <span class="kind">{{ if eq $p.Section "notes" }}note{{ else }}post{{ end }}</span>{{ end }}
+    {{- if $p.Draft }} <span class="kind">draft</span>{{ end }}
+  </span>
+</li>

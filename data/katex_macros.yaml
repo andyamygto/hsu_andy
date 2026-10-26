@@ -1,0 +1,6 @@
+# LaTeX macros available in every post and note (KaTeX syntax).
+'\dd': '\mathrm{d}'
+'\vb': '\mathbf{#1}'
+'\abs': '\left|#1\right|'
+'\Tr': '\operatorname{Tr}'
+'\expval': '\langle #1 \rangle'
