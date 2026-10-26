@@ -1,0 +1,16 @@
+# Short updates for the home page, newest first. Inline HTML/Markdown links are fine.
+
+- date: 2026-10
+  text: 'New preprint on large-language-model agents for high-fidelity many-body perturbation theory calculations: <a href="https://arxiv.org/abs/2610.20779">arXiv:2610.20779</a>.'
+
+- date: 2026-06
+  text: '<i>Ab initio</i> downfolding with long-range electron–phonon coupling published in <a href="https://doi.org/10.1103/7hqv-hn2v">Phys. Rev. B</a>.'
+
+- date: 2025-03
+  text: 'Electron–phonon coupling in the kagome superconductor CsV<sub>3</sub>Sb<sub>5</sub> from GW perturbation theory, in <a href="https://doi.org/10.1103/PhysRevLett.134.106401">Phys. Rev. Lett.</a>'
+
+- date: 2024-10
+  text: 'CDW order in CuTe makes electrons lighter and faster: <a href="https://doi.org/10.1038/s41467-024-53653-z">Nat. Commun.</a>'
+
+- date: 2024-03
+  text: 'Three-dimensional ultrafast CDW dynamics in CuTe: <a href="https://doi.org/10.1038/s41467-024-46615-y">Nat. Commun.</a>'
