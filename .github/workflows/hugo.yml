@@ -29,11 +29,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # full history, for "updated" dates
+      # Pull requests only check that the site builds; they don't need Pages set up.
       - id: pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
       - name: Build
-        run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
-      - uses: actions/upload-pages-artifact@v3
+        run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url || 'https://andyamygto.github.io/hsu_andy' }}/"
+      - if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
 
