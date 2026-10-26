@@ -1,14 +1,14 @@
-# Andy Hsu — website
+# Chih-En (Andy) Hsu — website
 
-網址：<https://andyamygto.github.io/hsu_andy/>
+網址：<https://andyamygto.github.io/>
 
 整個網站都在瀏覽器裡編輯，電腦和 iPad 都可以：**<https://app.pagescms.org>**
 
 ## 第一次設定（只做一次）
 
 1. 到 GitHub 這個 repo：Settings → Pages → Source 選 **GitHub Actions**。
-2. 打開 <https://app.pagescms.org>，用 GitHub 登入，依畫面指示把 Pages CMS 安裝到 `hsu_andy` 這個 repo。
-3. 選 `hsu_andy` 和 `master` 分支，左邊就會出現網站的各個部分。
+2. 打開 <https://app.pagescms.org>，用 GitHub 登入，依畫面指示把 Pages CMS 安裝到 `andyamygto.github.io` 這個 repo。
+3. 選 `andyamygto.github.io` 和 `master` 分支，左邊就會出現網站的各個部分。
 
 ## 左邊選單
 
@@ -60,4 +60,4 @@ end do
 
 - 網站用 [Hugo](https://gohugo.io) 產生，`.github/workflows/hugo.yml` 在每次 push 到 `master` 時建置和部署。
 - Pages CMS 的設定在 `.pages.yml`；上傳的檔案放在 `static/uploads/`。
-- 本機預覽：`hugo server -D`，打開 http://localhost:1313/hsu_andy/
+- 本機預覽：`hugo server -D`，打開 http://localhost:1313/
