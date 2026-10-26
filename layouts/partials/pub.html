@@ -2,6 +2,7 @@
   {{ replace .authors "C.-E. Hsu" "<b>C.-E. Hsu</b>" | safeHTML }},
   “{{ .title | safeHTML }},”
   <i>{{ .venue }}</i> ({{ .year }}).
+  {{- with .note }} <span class="pub-note">{{ . }}</span>{{ end }}
   {{- with .doi }} <a href="https://doi.org/{{ . }}">[doi]</a>{{ end }}
   {{- with .arxiv }} <a href="https://arxiv.org/abs/{{ . }}">[arXiv]</a>{{ end }}
 </li>

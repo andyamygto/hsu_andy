@@ -1,0 +1,6 @@
+{{- /* Category key ("moire") → theme title from data/research.yaml. */ -}}
+{{- $title := . -}}
+{{- range site.Data.research.themes -}}
+  {{- if eq .key $ }}{{ $title = .title }}{{ end -}}
+{{- end -}}
+{{- return $title -}}

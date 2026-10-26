@@ -1,48 +1,40 @@
-- title: Electron–phonon coupling beyond DFT
-  summary: >-
-    GW perturbation theory (GWPT) builds quasiparticle self-energy effects into
-    electron–phonon matrix elements. In the kagome superconductor
-    CsV<sub>3</sub>Sb<sub>5</sub>, GW-level coupling explains the multimodal kinks
-    seen in ARPES, and anisotropic Eliashberg calculations built on it give nodeless
-    s-wave superconductivity.
-    [Phys. Rev. Lett. 134, 106401 (2025)](https://doi.org/10.1103/PhysRevLett.134.106401)
-  image: ""
-  caption: ""
-- title: Ab initio downfolding with phonons
-  summary: >-
-    Effective low-energy models that keep both short- and long-range
-    electron–phonon coupling. Phonons lower the on-site repulsion by about 40% in MgO
-    and 79% in GeTe, and give an attractive nearest-neighbour interaction in GeTe.
-    A related study traces phonon-mediated attraction in SrTiO<sub>3</sub> to the
-    generalized Fröhlich and deformation-potential mechanisms.
-    [Phys. Rev. B 113, 245144 (2026)](https://doi.org/10.1103/7hqv-hn2v) ·
-    [arXiv:2501.17230](https://arxiv.org/abs/2501.17230)
-  image: ""
-  caption: ""
-- title: Charge-density waves in CuTe
-  summary: >-
-    First-principles CDW structures and electronic structure, together with
-    experiments: ultrafast spectroscopy shows a three-dimensional CDW below 220 K,
-    and momentum-resolved EELS shows electrons becoming lighter and faster as the
-    CDW order grows.
-    [Nat. Commun. 15, 2386 (2024)](https://doi.org/10.1038/s41467-024-46615-y) ·
-    [Nat. Commun. 15, 9345 (2024)](https://doi.org/10.1038/s41467-024-53653-z)
-  image: ""
-  caption: ""
-- title: Two-dimensional materials and phonon methods
-  summary: >-
-    Metallic square-lattice Si and Ge monolayers whose Dirac fermions are faster
-    than those in graphene; strong in-plane anisotropy in layered
-    SnS<sub>1−x</sub>Se<sub>x</sub>; and a force-constant partitioning scheme for supercell phonon
-    calculations.
-    [Phys. Rev. B 107, 115410 (2023)](https://doi.org/10.1103/PhysRevB.107.115410) ·
-    [J. Phys.: Condens. Matter 33, 055902 (2021)](https://arxiv.org/abs/2003.13344)
-  image: ""
-  caption: ""
-- title: Automating many-body calculations
-  summary: >-
-    Large-language-model agents for high-fidelity many-body perturbation theory
-    calculations.
-    [arXiv:2610.20779](https://arxiv.org/abs/2610.20779)
-  image: ""
-  caption: ""
+heading: Correlated excitons in quantum materials
+subheading: Moiré many-body physics, external control and ultrafast response
+themes:
+  - key: moire
+    title: Correlated excitons in moiré TMDs
+    points:
+      - Wigner crystalline excitons and interaction-driven phases
+      - Large-scale simulations of moiré excitons
+    image: /uploads/research-moire-wce.png
+    caption: From a free electron–hole pair to a strongly correlated Wigner crystalline exciton.
+  - key: tunable
+    title: Tunable excitons in quantum materials
+    points:
+      - Carrier-density-dependent screening and spin–orbit effects
+      - Electric-field tuning of exciton energies and optical response
+    image: /uploads/research-moire-lattice.png
+    caption: Atomic structure of a TMD moiré superlattice.
+  - key: ultrafast
+    title: Ultrafast nonlinear optics
+    points:
+      - Real-time exciton dynamics with TD-aGW
+      - Non-equilibrium exciton dynamics
+      - Nonlinear optical response
+    image: /uploads/research-tdagw-phonons.png
+    caption: Excited-carrier populations from TD-aGW at −50, 0 and 50 fs, with and without phonons.
+  - key: methods
+    title: Methods and large-scale computing
+    points:
+      - Many-body perturbation theory (GW, BSE, GW perturbation theory)
+      - First-principles calculations on exascale supercomputers
+    image: ""
+    caption: ""
+  - key: earlier
+    title: Electron–phonon coupling, charge-density waves and 2D materials
+    points: []
+    image: ""
+    caption: ""
+highlights:
+  - "Moiré excitons in generalized Wigner crystals, [PNAS 2026](https://doi.org/10.1073/pnas.2531259123) (co-first author)"
+  - "Member of a [2025 Gordon Bell Prize finalist](https://arxiv.org/abs/2509.23018) team"

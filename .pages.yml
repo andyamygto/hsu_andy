@@ -17,6 +17,7 @@ content:
     fields:
       - { name: name, label: 名字, type: string }
       - { name: tagline, label: 名字下方那一行, type: string }
+      - { name: position, label: 職位（一行一個）, type: text }
       - { name: email, label: Email, type: string }
       - { name: scholar, label: Google Scholar 網址, type: string }
       - { name: orcid, label: ORCID 網址, type: string }
@@ -38,18 +39,27 @@ content:
 
   - name: research
     label: 研究主題
-    description: 首頁 Research 區塊，依這裡的順序顯示。
+    description: 首頁 Research 區塊。主題的 key 不要改，論文和筆記靠它分類。
     type: file
     path: data/research.yaml
-    list: true
     fields:
-      - { name: title, label: 主題, type: string, required: true }
-      - name: summary
-        label: 說明
-        description: 可以用 Markdown 連結 [文字](網址) 和數學 $...$。
-        type: code
-      - { name: image, label: 圖, type: image }
-      - { name: caption, label: 圖說, type: string }
+      - { name: heading, label: 總標題, type: string }
+      - { name: subheading, label: 副標題, type: string }
+      - name: themes
+        label: 主題
+        type: object
+        list: true
+        fields:
+          - { name: key, label: "key（分類代號，不要改）", type: string, required: true }
+          - { name: title, label: 主題名稱, type: string, required: true }
+          - { name: points, label: 重點, type: string, list: true }
+          - { name: image, label: 圖, type: image }
+          - { name: caption, label: 圖說, type: string }
+      - name: highlights
+        label: 亮點
+        description: "顯示在自我介紹下方。可以用 [文字](網址) 加連結。"
+        type: string
+        list: true
 
   - name: publications
     label: 論文
@@ -66,7 +76,18 @@ content:
       - { name: year, label: 年份, type: number }
       - { name: doi, label: "DOI（只填 10.xxxx/...）", type: string }
       - { name: arxiv, label: "arXiv 編號（例如 2411.07427）", type: string }
-      - { name: selected, label: 列在首頁, type: boolean }
+      - { name: note, label: "備註（例如 co-first author）", type: string }
+      - name: category
+        label: 分類
+        type: select
+        options:
+          values:
+            - { value: moire, label: Correlated excitons in moiré TMDs }
+            - { value: tunable, label: Tunable excitons in quantum materials }
+            - { value: ultrafast, label: Ultrafast nonlinear optics }
+            - { value: methods, label: Methods and large-scale computing }
+            - { value: earlier, label: "Electron–phonon, CDW, 2D materials" }
+
 
   - name: notes
     label: 筆記
@@ -89,7 +110,18 @@ content:
         required: true
         pattern: { regex: "^[a-z0-9][a-z0-9-]*$", message: "只能用英文小寫、數字和 -" }
       - { name: date, label: 日期, type: date }
-      - { name: topic, label: 分類, description: "例如 GW、BSE、Electron–phonon。筆記頁依這個分組。", type: string }
+      - name: topic
+        label: 分類
+        description: 筆記頁依這個分組。
+        type: select
+        options:
+          values:
+            - { value: moire, label: Correlated excitons in moiré TMDs }
+            - { value: tunable, label: Tunable excitons in quantum materials }
+            - { value: ultrafast, label: Ultrafast nonlinear optics }
+            - { value: methods, label: Methods and large-scale computing }
+            - { value: earlier, label: "Electron–phonon, CDW, 2D materials" }
+
       - { name: tags, label: 標籤, type: string, list: true }
       - name: draft
         label: 草稿

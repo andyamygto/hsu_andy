@@ -196,3 +196,23 @@ figcaption { font-size: 0.9rem; color: var(--faint); margin-top: 0.5em; text-ali
   .topic.with-image { display: grid; grid-template-columns: 200px 1fr; gap: 22px; align-items: start; }
   .topic.with-image .topic-fig { margin: 0.3em 0 0; }
 }
+
+/* research themes ------------------------------------------------------ */
+.position { margin: 0.2em 0 0; font-size: 0.95rem; }
+.highlights { list-style: none; padding: 0; margin: 1em 0 0; font-size: 0.95rem; }
+.highlights li::before { content: "★ "; color: var(--mark); font-size: 0.8em; }
+.research-heading { font-size: 1.25rem; font-weight: 600; margin: 0; }
+.research-sub { margin: 0 0 1.6em; color: var(--faint); font-style: italic; }
+.points { margin: 0.2em 0 0.5em; padding-left: 1.1em; }
+.points li { margin: 0.1em 0; }
+.pubs-short { list-style: none; padding: 0; margin: 0.4em 0 0; font-size: 0.92rem; }
+.pubs-short li { margin: 0.25em 0; padding-left: 0.9em; text-indent: -0.9em; }
+.pubs-short li::before { content: "→ "; color: var(--faint); }
+.pub-where, .pub-note { color: var(--faint); font-size: 0.9em; }
+.pub-note { font-style: italic; }
+.more-pubs { margin: 0.2em 0 0; font-family: var(--mono); font-size: 0.78rem; }
+.topic { padding-bottom: 1.4em; border-bottom: 1px dashed var(--rule); }
+.topic:last-child { border-bottom: 0; }
+@media (min-width: 640px) {
+  .topic.with-image { grid-template-columns: 220px 1fr; }
+}

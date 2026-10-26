@@ -2,9 +2,22 @@
 <h1>{{ .Title }}</h1>
 <div class="prose">{{ .Content }}</div>
 
-<ol class="pubs" reversed>
-  {{- range site.Data.publications }}
-  {{ partial "pub.html" . }}
+{{- $pubs := site.Data.publications }}
+{{- $keys := slice }}
+{{- range site.Data.research.themes }}{{ $keys = $keys | append .key }}{{ end }}
+{{- range $keys }}
+  {{- $key := . }}
+  {{- with where $pubs "category" $key }}
+  <h2 id="{{ $key }}">{{ partial "topic-title.html" $key }}</h2>
+  <ol class="pubs">
+    {{- range . }}{{ partial "pub.html" . }}{{ end }}
+  </ol>
   {{- end }}
-</ol>
+{{- end }}
+{{- with where $pubs "category" "not in" $keys }}
+  <h2 id="other">Other</h2>
+  <ol class="pubs">
+    {{- range . }}{{ partial "pub.html" . }}{{ end }}
+  </ol>
+{{- end }}
 {{ end }}

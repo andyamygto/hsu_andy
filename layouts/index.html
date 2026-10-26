@@ -1,8 +1,12 @@
 {{ define "main" }}
 {{- $me := site.Data.profile }}
+{{- $r := site.Data.research }}
 <section class="intro">
   <h1>{{ $me.name }}</h1>
   <p class="tagline">{{ $me.tagline }}</p>
+  {{- with $me.position }}
+  <p class="position">{{ replace . "\n" "<br>" | safeHTML }}</p>
+  {{- end }}
   <p class="links">
     <a href="mailto:{{ $me.email }}">email</a> /
     {{- with $me.cv }} <a href="{{ partial "asset-url.html" . }}">cv</a> /{{ end }}
@@ -11,38 +15,45 @@
     <a href="{{ $me.github }}">github</a>
   </p>
   <div class="prose">{{ .Content }}</div>
+  {{- with $r.highlights }}
+  <ul class="highlights">
+    {{- range . }}<li>{{ $.RenderString . }}</li>{{ end }}
+  </ul>
+  {{- end }}
 </section>
 
-{{- with site.Data.research }}
-<section>
+<section class="research">
   <h2>Research</h2>
-  {{- range . }}
-  <div class="topic{{ if .image }} with-image{{ end }}">
-    {{- if .image }}
+  {{- with $r.heading }}<p class="research-heading">{{ . }}</p>{{ end }}
+  {{- with $r.subheading }}<p class="research-sub">{{ . }}</p>{{ end }}
+
+  {{- range $i, $t := $r.themes }}
+  {{- $papers := where site.Data.publications "category" $t.key }}
+  <div class="topic{{ if $t.image }} with-image{{ end }}" id="{{ $t.key }}">
+    {{- if $t.image }}
     <figure class="topic-fig">
-      <img src="{{ partial "asset-url.html" .image }}" alt="{{ .caption | default .title }}" loading="lazy">
-      {{- with .caption }}
+      <img src="{{ partial "asset-url.html" $t.image }}" alt="{{ $t.caption | default $t.title }}" loading="lazy">
+      {{- with $t.caption }}
       <figcaption>{{ . | $.RenderString }}</figcaption>
       {{- end }}
     </figure>
     {{- end }}
     <div>
-      <h3>{{ .title }}</h3>
-      {{ $.RenderString (dict "display" "block") .summary }}
+      <h3>{{ $t.title }}</h3>
+      {{- with $t.points }}
+      <ul class="points">{{ range . }}<li>{{ $.RenderString . }}</li>{{ end }}</ul>
+      {{- end }}
+      {{- with $papers }}
+      <ul class="pubs-short">
+        {{- range first 3 . }}{{ partial "pub-short.html" . }}{{ end }}
+      </ul>
+      {{- if gt (len .) 3 }}
+      <p class="more-pubs"><a href="{{ "publications/" | relURL }}#{{ $t.key }}">all {{ len . }} papers</a></p>
+      {{- end }}
+      {{- end }}
     </div>
   </div>
   {{- end }}
-</section>
-{{- end }}
-
-<section>
-  <h2>Selected publications</h2>
-  <ol class="pubs plain">
-    {{- range where site.Data.publications "selected" true }}
-    {{ partial "pub.html" . }}
-    {{- end }}
-  </ol>
-  <p><a href="{{ "publications/" | relURL }}">All publications</a></p>
 </section>
 
 {{- $recent := where site.RegularPages "Section" "in" (slice "posts" "notes") }}

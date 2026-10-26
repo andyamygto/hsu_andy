@@ -2,7 +2,7 @@
 title: Andy Hsu
 ---
 
-I am a computational condensed matter physicist at the University of Southern California.
-I use first-principles many-body perturbation theory (GW, the Bethe–Salpeter equation and
-GW perturbation theory) to study electron–phonon coupling, phonon-mediated
-superconductivity and charge-density waves in quantum materials.
+I study correlated excitons in quantum materials with first-principles many-body
+perturbation theory: excitons in moiré transition-metal dichalcogenides and
+generalized Wigner crystals, excitons tuned by carrier density and electric fields,
+and ultrafast non-equilibrium exciton dynamics with time-dependent GW.
