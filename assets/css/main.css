@@ -100,7 +100,7 @@ main > h2, section > h2 {
 .toc ul { list-style: none; padding-left: 1em; margin: 0.3em 0; }
 .toc > nav > ul { padding-left: 0; }
 
-.prose img, .prose svg { max-width: 100%; height: auto; display: block; margin: 1.4em auto; }
+.prose img { max-width: 100%; height: auto; display: block; margin: 1.4em auto; }
 .prose blockquote { margin: 1.4em 0; padding-left: 1em; border-left: 2px solid var(--rule); color: var(--faint); }
 .prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5em 0; }
 .prose table { border-collapse: collapse; margin: 1.4em 0; font-size: 0.95rem; display: block; overflow-x: auto; }
@@ -142,3 +142,37 @@ pre code { background: none; padding: 0; font-size: inherit; }
   text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint);
 }
 .files ul { padding-left: 1.2em; font-family: var(--mono); font-size: 0.85rem; }
+
+/* blocks: > [!def] … ------------------------------------------------- */
+.block {
+  --tone: var(--faint);
+  margin: 1.4em 0; padding: 10px 16px 2px;
+  border-left: 3px solid var(--tone);
+  background: color-mix(in srgb, var(--tone) 6%, var(--paper));
+}
+.block-def    { --tone: #1f4f8f; }
+.block-result { --tone: #2f6b3a; }
+.block-derive { --tone: #6b5a2f; }
+.block-param  { --tone: #4a4a6a; }
+.block-warn   { --tone: #9a3412; }
+.block-idea   { --tone: #7a3f8a; }
+.block-todo   { --tone: #9a6a12; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .block-def    { --tone: #8db3e8; }
+  :root:not([data-theme="light"]) .block-result { --tone: #9cc58f; }
+  :root:not([data-theme="light"]) .block-derive { --tone: #cdb88a; }
+  :root:not([data-theme="light"]) .block-param  { --tone: #a9a9d0; }
+  :root:not([data-theme="light"]) .block-warn   { --tone: #e2a07a; }
+  :root:not([data-theme="light"]) .block-idea   { --tone: #c9a0d6; }
+  :root:not([data-theme="light"]) .block-todo   { --tone: #e0bd72; }
+}
+.block-head, .block > summary { margin: 0 0 0.4em; font-weight: 600; }
+.block > summary { cursor: pointer; padding-bottom: 8px; margin-bottom: 0; }
+.block[open] > summary { margin-bottom: 0.4em; }
+.block-label {
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
+  color: var(--tone); letter-spacing: 0.05em; margin-right: 6px;
+}
+.block > p:last-child, .block > :last-child { margin-bottom: 0.8em; }
+.block pre { background: color-mix(in srgb, var(--tone) 4%, var(--code-bg)); }
+.block-head + *, .block > summary + * { margin-top: 0; }
