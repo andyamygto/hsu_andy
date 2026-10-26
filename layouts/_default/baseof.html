@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ if .IsHome }}{{ site.Data.profile.name }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
-  {{- $desc := .Description | default .Summary | default site.Data.profile.tagline | plainify | truncate 160 }}
+  {{- $me := site.Data.profile }}
+  <title>{{ if .IsHome }}{{ $me.name }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+  {{- $desc := .Description | default .Summary | default $me.tagline | plainify | truncate 160 }}
   <meta name="description" content="{{ $desc }}">
-  <meta name="author" content="{{ site.Data.profile.name }}">
+  <meta name="author" content="{{ $me.name }}">
   <link rel="canonical" href="{{ .Permalink }}">
-  <meta property="og:title" content="{{ if .IsHome }}{{ site.Data.profile.name }}{{ else }}{{ .Title }}{{ end }}">
+  <meta property="og:title" content="{{ if .IsHome }}{{ $me.name }}{{ else }}{{ .Title }}{{ end }}">
   <meta property="og:description" content="{{ $desc }}">
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  {{- with $me.photo }}
+  <meta property="og:image" content="{{ strings.TrimPrefix "/" . | absURL }}">
+  {{- end }}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
   {{- with resources.Get "css/main.css" | minify | fingerprint }}
   <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
@@ -24,28 +25,33 @@
   <link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">
   {{- end }}
 </head>
-<body>
-  <header class="top">
-    <a class="home-link" href="{{ "/" | relURL }}">{{ site.Title }}</a>
-    <nav>
-      {{- $here := . }}
-      {{- range site.Menus.main }}
-      <a href="{{ .URL }}"{{ if or ($here.IsMenuCurrent "main" .) ($here.HasMenuCurrent "main" .) }} class="here"{{ end }}>{{ .Name }}</a>
-      {{- end }}
-      {{- with site.Data.profile.cv }}
-      <a href="{{ partial "asset-url.html" . }}">CV</a>
-      {{- end }}
-    </nav>
+<body{{ if .IsHome }} class="is-home"{{ end }}>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ "/" | relURL }}">{{ $me.name }}</a>
+      <nav aria-label="Main">
+        {{- $here := . }}
+        {{- range site.Menus.main }}
+        <a href="{{ .URL }}"{{ if or ($here.IsMenuCurrent "main" .) ($here.HasMenuCurrent "main" .) }} aria-current="page"{{ end }}>{{ .Name }}</a>
+        {{- end }}
+        {{- with $me.cv }}
+        <a href="{{ partial "asset-url.html" . }}">CV</a>
+        {{- end }}
+      </nav>
+    </div>
   </header>
 
   <main>
+    {{- if not .IsHome }}<div class="wrap page">{{ end }}
     {{ block "main" . }}{{ end }}
+    {{- if not .IsHome }}</div>{{ end }}
   </main>
 
-  <footer class="bottom">
-    {{ site.Data.profile.name }}, {{ now.Year }}
-    · <a href="{{ "index.xml" | relURL }}">RSS</a>
-    · <a href="https://github.com/andyamygto/hsu_andy">source</a>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© {{ now.Year }} {{ $me.name }}</span>
+      <span><a href="mailto:{{ $me.email }}">Email</a> · <a href="{{ "index.xml" | relURL }}">RSS</a></span>
+    </div>
   </footer>
 </body>
 </html>

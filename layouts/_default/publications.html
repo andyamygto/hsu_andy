@@ -5,10 +5,9 @@
 {{- $pubs := site.Data.publications }}
 {{- $keys := slice }}
 {{- range site.Data.research.themes }}{{ $keys = $keys | append .key }}{{ end }}
-{{- range $keys }}
-  {{- $key := . }}
+{{- range $i, $key := $keys }}
   {{- with where $pubs "category" $key }}
-  <h2 id="{{ $key }}">{{ partial "topic-title.html" $key }}</h2>
+  <h2 class="group accent-{{ mod $i 3 }}" id="{{ $key }}">{{ partial "topic-title.html" $key }}</h2>
   <ol class="pubs">
     {{- range . }}{{ partial "pub.html" . }}{{ end }}
   </ol>
