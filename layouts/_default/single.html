@@ -21,8 +21,29 @@
   </details>
   {{- end }}
 
+  {{- $pdfs := .Resources.Match "**.pdf" }}
+  {{- /* A note that is only a PDF: show the PDF on the page. */ -}}
+  {{- if and $pdfs (not (trim (string .RawContent) " \n\r\t")) }}
+  {{- with index $pdfs 0 }}
+  <object class="pdf" data="{{ .RelPermalink }}" type="application/pdf">
+    <p><a href="{{ .RelPermalink }}">Open {{ .Name }}</a></p>
+  </object>
+  {{- end }}
+  {{- end }}
+
   <div class="prose">
     {{ .Content }}
   </div>
+
+  {{- with $pdfs }}
+  <section class="files">
+    <h2>Files</h2>
+    <ul>
+      {{- range . }}
+      <li><a href="{{ .RelPermalink }}">{{ .Name }}</a></li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
 </article>
 {{ end }}

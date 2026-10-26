@@ -39,6 +39,11 @@ static/files/      其他要放上網的檔案 → /hsu_andy/files/檔名
 
 也可以一次上傳整個資料夾：先在電腦上建好含 `index.md`、圖片、PDF 的資料夾，再拖進 `content/notes/`。
 
+### 只有 PDF 的筆記（LaTeX 編譯好的、手寫掃描的）
+
+資料夾裡放 PDF，`index.md` 只寫開頭那幾行、不寫內文。頁面會直接嵌入 PDF，底下列出下載連結。
+有寫內文時，PDF 不會嵌入，但一樣會列在頁面最下方的 Files。
+
 ## 寫作語法
 
 - 數學：`$...$` 行內，`$$...$$` 獨立一行，在建置時由 KaTeX 轉成 HTML。
@@ -46,12 +51,7 @@ static/files/      其他要放上網的檔案 → /hsu_andy/files/檔名
 - 程式碼：用 ```` ```fortran ```` 或 ```` ```python ````。
 - 草稿：開頭加 `draft: true` 就不會公開。
 - 目錄：有三個以上小標題時自動出現；加 `toc: false` 可以關掉。
-- `content/notes/example-note/` 是格式範例（草稿，不會公開）。
-
-### Obsidian / Typora 使用者
-
-- 圖片存放位置設成「與筆記同資料夾」。
-- Obsidian：設定 → Files & Links → 關閉 *Use [[Wikilinks]]*，圖片才會是一般的 `![](x.png)`。
+- `content/notes/example-note/` 和 `example-pdf-note/` 是格式範例（草稿，不會公開）。
 
 ## 本機預覽
 
