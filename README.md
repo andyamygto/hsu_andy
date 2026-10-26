@@ -1,112 +1,85 @@
-# Andy Hsu — blog & notes
+# Andy Hsu — website & notes
 
 網址：<https://andyamygto.github.io/hsu_andy/>
-推到 `master` 之後，GitHub Actions 會自動更新網站，大約一分鐘。
 
-```
-content/notes/     整理過的筆記，依 topic 分組
-content/posts/     文章，依日期排列
-content/about.md   About 頁
-data/publications.yaml   論文清單
-data/katex_macros.yaml   LaTeX 巨集
-static/files/      其他要放上網的檔案 → /hsu_andy/files/檔名
-```
-
-一篇筆記 = 一個資料夾：
-
-```
-content/notes/gw-plasmon-pole/
-├── index.md     內文
-├── bands.png    圖
-└── deriv.pdf    手寫推導（iPad 匯出的 PDF）
-```
-
-`content/notes/example-note/` 是完整範例（草稿，不會公開），直接打開對照最快。
-
----
-
-## 用 vim 寫
+## 一次性設定
 
 ```bash
-bin/new note gw-plasmon-pole "GW plasmon-pole 模型"   # 建立資料夾和開頭，直接用 vim 打開
-# 寫完
-git add -A && git commit -m "GW plasmon-pole 筆記" && git push
+git clone https://github.com/andyamygto/hsu_andy.git ~/hsu_andy
+mkdir -p ~/bin && ln -s ~/hsu_andy/bin/note ~/bin/note   # 之後在任何資料夾都能打 note
+echo 'source ~/hsu_andy/tools/notes.vim' >> ~/.vimrc      # vim 區塊縮寫
 ```
 
-`bin/new` 產生的檔案預設是 `draft: true`。要公開時，把那行刪掉。
+（`~/bin` 要在 PATH 裡；沒有的話在 `~/.bashrc` 加 `export PATH=~/bin:$PATH`。）
 
-在 `~/.vimrc` 加一行，就能用縮寫打區塊：
+## 日常：只用 `note`
 
-```vim
-source ~/hsu_andy/tools/notes.vim
+```bash
+note new gw-plasmon-pole "GW plasmon-pole 模型"   # 開新筆記，直接進 vim
+note add gw-plasmon ~/Downloads/deriv.pdf bands.png   # 放圖或 PDF 進去
+note edit gw-plasmon                               # 之後再打開（名稱打一部分就好）
+note list                                          # 看有哪些、哪些還是草稿
+note publish gw-plasmon                            # 上線
 ```
 
-| 打 | 變成 |
+- 新的筆記先是**草稿**，放在 `drafts/`，只存在這台電腦，不會上傳。
+- `note publish` 才會放上網站，大約一分鐘後就看得到。
+- 已經公開的筆記改完後，打 `note push`。
+- 文章（blog）用 `note post 名稱` 開，其他指令都一樣。
+- 想先看效果：`note preview`，再打開 http://localhost:1313/hsu_andy/ 。這個要先裝 Hugo。
+
+## 在 vim 裡寫
+
+插入模式打這些，會變成區塊開頭：
+
+| 打 | 區塊 |
 |---|---|
-| `;def` | `> [!def]` 定義 |
-| `;res` | `> [!result]` 結果 |
-| `;der` | `> [!derive]-` 推導（預設收合） |
-| `;par` | `> [!param]` 參數 |
-| `;warn` | `> [!warn]` 注意 |
+| `;def` | 定義 |
+| `;res` | 結果 |
+| `;der` | 推導（預設收合，點了才展開） |
+| `;par` | 參數 |
+| `;warn` | 注意 |
 | `;idea` `;todo` `;ref` | 想法、待辦、參考 |
 
-區塊裡按 Enter，下一行會自動補上 `> `。要結束區塊，就在多出來的 `> ` 那行按 `Ctrl-U` 清掉。
+區塊裡按 Enter，下一行會自動補 `> `。要結束區塊，就在多出來的 `> ` 那行按 `Ctrl-U`。
 
-## 只需要會這些 Markdown
+其他會用到的寫法：
 
 ````markdown
-## 小標題                      ← 兩個 # ；三個 # 是更小的標題
+## 小標題
 
-一般段落。空一行就是新段落。
-**粗體**　*斜體*　`程式碼或參數名`
+**粗體**　`參數名`　- 條列
 
-- 條列
-- 條列
+$E = mc^2$            行內數學
+$$ \Sigma = iGW $$    獨立一行
 
-$E = mc^2$                     ← 行內數學
+![說明](bands.png)    圖（note add 會把這行印出來給你）
+[推導](deriv.pdf)     檔案
 
-$$                             ← 獨立一行的數學
-\Sigma = iGW
-$$
-
-> [!def] 標題                  ← 區塊：第一行寫種類和標題
-> 內容，每一行開頭都是 >
-> 可以放數學、條列、程式碼
-
-> [!derive]- 推導              ← 加 - 預設收合，點了才展開
-
-![圖的說明](bands.png)          ← 圖片，檔案放同一個資料夾
-[下載推導](deriv.pdf)           ← 連結到檔案
-
-```fortran                     ← 程式碼，標上語言就會上色
+```fortran
 do i = 1, n
 end do
 ```
 ````
 
-數學巨集（`\vb{k}`、`\abs{x}`、`\Tr`、`\dd`、`\expval{x}`）在 `data/katex_macros.yaml`，可以自己加。
+完整範例：`content/notes/example-note/index.md`。
+數學巨集（`\vb{k}`、`\abs{x}`、`\Tr`、`\dd`、`\expval{x}`）在 `data/katex_macros.yaml`。
 
-## 用 iPad
+## iPad
 
-**手寫推導 → PDF**
-1. 用任何能匯出 PDF 的手寫 app 寫（內建的備忘錄也可以），匯出 PDF 存到「檔案」。
-2. Safari 打開 GitHub 上這個 repo，進到該筆記的資料夾 → **Add file → Upload files**，選 PDF，Commit。
-3. 頁面最下方會自動列出 PDF。如果 `index.md` 只有開頭、沒有內文，PDF 會直接顯示在頁面上。
+在 iPad 上傳的東西會**直接公開**，所以適合補資料，不適合打草稿。
 
-**在 iPad 上打字**
-- 小修改：在 GitHub 網頁打開檔案，按鉛筆圖示就能編輯。
-- 新的筆記：**Add file → Create new file**，檔名打 `content/notes/資料夾名稱/index.md`，開頭照下面寫：
+- **手寫推導：** 匯出 PDF → Safari 打開 GitHub 上這個 repo → 進到 `content/notes/那篇/` → **Add file → Upload files**。PDF 會自動列在頁面最下方。
+- **小修改：** 在 GitHub 網頁打開檔案，按鉛筆圖示編輯。
 
-  ```yaml
-  ---
-  title: "標題"
-  date: 2026-10-26
-  topic: "GW"
-  ---
-  ```
+## 網站其他部分
 
-## 其他
+| 要改 | 檔案 |
+|---|---|
+| 首頁自我介紹 | `content/_index.md` |
+| 名字、副標、連結 | `hugo.toml` |
+| 論文（`selected: true` 會列在首頁） | `data/publications.yaml` |
+| About | `content/about.md` |
+| CV | 把 PDF 放成 `static/files/cv.pdf`，選單和首頁就會出現 CV 連結 |
 
-- 目錄：有三個以上小標題時自動出現；加 `toc: false` 可以關掉。
-- 本機預覽（要先裝 Hugo）：`hugo server -D`，打開 http://localhost:1313/hsu_andy/
-- 第一次上線（只做一次）：Settings → Pages → Source 選 **GitHub Actions**。
+第一次上線（只做一次）：Settings → Pages → Source 選 **GitHub Actions**。

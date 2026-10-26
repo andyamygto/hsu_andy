@@ -4,22 +4,31 @@
   <p class="tagline">{{ site.Params.tagline }}</p>
   <p class="links">
     <a href="mailto:{{ site.Params.email }}">email</a> /
+    {{- if fileExists "static/files/cv.pdf" }} <a href="{{ "files/cv.pdf" | relURL }}">cv</a> /{{ end }}
     <a href="{{ site.Params.scholar }}">scholar</a> /
     <a href="{{ site.Params.orcid }}">orcid</a> /
     <a href="{{ site.Params.github }}">github</a>
   </p>
-  {{ .Content }}
+  <div class="prose">{{ .Content }}</div>
+</section>
+
+<section>
+  <h2>Selected publications</h2>
+  <ol class="pubs plain">
+    {{- range where site.Data.publications "selected" true }}
+    {{ partial "pub.html" . }}
+    {{- end }}
+  </ol>
+  <p><a href="{{ "publications/" | relURL }}">All publications</a></p>
 </section>
 
 {{- $recent := where site.RegularPages "Section" "in" (slice "posts" "notes") }}
+{{- with first 8 $recent.ByDate.Reverse }}
 <section>
-  <h2>Recent</h2>
-  {{- with first 15 $recent.ByDate.Reverse }}
+  <h2>Recent notes &amp; posts</h2>
   <ul class="entries">
     {{- range . }}{{ partial "entry.html" (dict "page" . "kind" true) }}{{ end }}
   </ul>
-  {{- else }}
-  <p class="quiet">Nothing here yet.</p>
-  {{- end }}
 </section>
+{{- end }}
 {{ end }}

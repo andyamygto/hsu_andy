@@ -2,16 +2,9 @@
 <h1>{{ .Title }}</h1>
 <div class="prose">{{ .Content }}</div>
 
-{{- $pubs := site.Data.publications }}
 <ol class="pubs" reversed>
-  {{- range $pubs }}
-  <li>
-    {{ replace .authors "C.-E. Hsu" "<b>C.-E. Hsu</b>" | safeHTML }},
-    “{{ .title | safeHTML }},”
-    <i>{{ .venue }}</i> ({{ .year }}).
-    {{- with .doi }} <a href="https://doi.org/{{ . }}">[doi]</a>{{ end }}
-    {{- with .arxiv }} <a href="https://arxiv.org/abs/{{ . }}">[arXiv]</a>{{ end }}
-  </li>
+  {{- range site.Data.publications }}
+  {{ partial "pub.html" . }}
   {{- end }}
 </ol>
 {{ end }}

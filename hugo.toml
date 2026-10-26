@@ -7,7 +7,7 @@ enableRobotsTXT = true
 
 [params]
   name = "Chih-En (Andy) Hsu"
-  tagline = "Condensed matter theory · DFT, GW, BSE, electron–phonon"
+  tagline = "Computational condensed matter physics · University of Southern California"
   email = "andyamygto@gmail.com"
   scholar = "https://scholar.google.com/citations?user=90kC41IAAAAJ"
   orcid = "https://orcid.org/0000-0002-9974-8611"
@@ -51,3 +51,13 @@ enableRobotsTXT = true
 
 [frontmatter]
   lastmod = ["lastmod", ":git", "date"]
+
+# drafts/ is private (git-ignored) and only exists on your own machine.
+# Mounting it here lets `bin/note preview` show drafts next to published pages.
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+  [[module.mounts]]
+    source = "drafts"
+    target = "content"

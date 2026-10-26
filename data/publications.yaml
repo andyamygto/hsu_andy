@@ -2,6 +2,7 @@
 #   authors : "C.-E. Hsu" is set in bold automatically
 #   doi     : bare DOI (leave empty if unsure)
 #   arxiv   : bare arXiv id
+#   selected: true -> also listed on the home page
 # Lines marked "# CHECK" still need the full author list or DOI.
 
 - title: "Enabling large language model agents for high-fidelity many-body perturbation theory calculations"
@@ -16,6 +17,7 @@
   year: 2026
   doi: "10.1103/7hqv-hn2v"
   arxiv: "2502.00103"
+  selected: true
 
 - title: "Diverse manifestations of electron–phonon coupling in a kagome superconductor"
   authors: "J.-Y. You, C.-E. Hsu, M. Del Ben, Z. Li"
@@ -23,6 +25,7 @@
   year: 2025
   doi: "10.1103/PhysRevLett.134.106401"
   arxiv: "2411.07427"
+  selected: true
 
 - title: "Phonon-mediated electron attraction in SrTiO<sub>3</sub> via the generalized Fröhlich and deformation potential mechanisms"
   authors: "C. J. N. Coveney, N. M. Tubman, C.-E. Hsu, A. Montoya-Castillo, M. R. Filip, J. B. Neaton, Z. Li, V. Vlček, A. M. Alvertis"
@@ -41,6 +44,7 @@
   venue: "Nat. Commun. 15, 2386"
   year: 2024
   doi: "10.1038/s41467-024-46615-y"
+  selected: true
 
 - title: "Atomically thin metallic Si and Ge allotropes with high Fermi velocities"
   authors: "C.-E. Hsu, Y.-T. Lee, <i>et al.</i>"  # CHECK: full author list
@@ -48,6 +52,7 @@
   year: 2023
   doi: "10.1103/PhysRevB.107.115410"
   arxiv: "2207.06669"
+  selected: true
 
 - title: "Structural, opto-electrical, and band-edge properties of full-series multilayer SnS<sub>1−x</sub>Se<sub>x</sub> (0 ≤ x ≤ 1) compounds with strong in-plane anisotropy"
   authors: "T. M. Herninda, C.-E. Hsu, H.-C. Hsueh, C.-H. Ho"
