@@ -100,7 +100,7 @@ main > h2, section > h2 {
 .toc ul { list-style: none; padding-left: 1em; margin: 0.3em 0; }
 .toc > nav > ul { padding-left: 0; }
 
-.prose img { max-width: 100%; height: auto; display: block; margin: 1.4em auto; }
+.prose img { max-width: 100%; height: auto; }
 .prose blockquote { margin: 1.4em 0; padding-left: 1em; border-left: 2px solid var(--rule); color: var(--faint); }
 .prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5em 0; }
 .prose table { border-collapse: collapse; margin: 1.4em 0; font-size: 0.95rem; display: block; overflow-x: auto; }
@@ -179,3 +179,20 @@ pre code { background: none; padding: 0; font-size: inherit; }
 .pubs.plain { list-style: none; padding-left: 0; }
 .pubs.plain li { padding-left: 0; }
 .intro .prose { margin-top: 1.2em; }
+
+/* figures -------------------------------------------------------------- */
+figure { margin: 1.6em 0; }
+figure img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+figcaption { font-size: 0.9rem; color: var(--faint); margin-top: 0.5em; text-align: center; }
+
+/* research topics on the home page ------------------------------------ */
+.topic { margin: 0 0 1.8em; }
+.topic h3 { margin: 0 0 0.3em; font-size: 1.12rem; }
+.topic p { margin: 0 0 0.4em; }
+.topic-fig figcaption { font-size: 0.82rem; text-align: left; }
+.topic-fig { margin: 0 0 0.8em; }
+.topic-fig img { margin: 0; border: 1px solid var(--rule); }
+@media (min-width: 640px) {
+  .topic.with-image { display: grid; grid-template-columns: 200px 1fr; gap: 22px; align-items: start; }
+  .topic.with-image .topic-fig { margin: 0.3em 0 0; }
+}

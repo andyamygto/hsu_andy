@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ if .IsHome }}{{ site.Params.name }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
-  {{- $desc := .Description | default .Summary | default site.Params.tagline | plainify | truncate 160 }}
+  <title>{{ if .IsHome }}{{ site.Data.profile.name }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+  {{- $desc := .Description | default .Summary | default site.Data.profile.tagline | plainify | truncate 160 }}
   <meta name="description" content="{{ $desc }}">
-  <meta name="author" content="{{ site.Params.name }}">
+  <meta name="author" content="{{ site.Data.profile.name }}">
   <link rel="canonical" href="{{ .Permalink }}">
-  <meta property="og:title" content="{{ if .IsHome }}{{ site.Params.name }}{{ else }}{{ .Title }}{{ end }}">
+  <meta property="og:title" content="{{ if .IsHome }}{{ site.Data.profile.name }}{{ else }}{{ .Title }}{{ end }}">
   <meta property="og:description" content="{{ $desc }}">
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
@@ -32,8 +32,8 @@
       {{- range site.Menus.main }}
       <a href="{{ .URL }}"{{ if or ($here.IsMenuCurrent "main" .) ($here.HasMenuCurrent "main" .) }} class="here"{{ end }}>{{ .Name }}</a>
       {{- end }}
-      {{- if fileExists "static/files/cv.pdf" }}
-      <a href="{{ "files/cv.pdf" | relURL }}">CV</a>
+      {{- with site.Data.profile.cv }}
+      <a href="{{ partial "asset-url.html" . }}">CV</a>
       {{- end }}
     </nav>
   </header>
@@ -43,7 +43,7 @@
   </main>
 
   <footer class="bottom">
-    {{ site.Params.name }}, {{ now.Year }}
+    {{ site.Data.profile.name }}, {{ now.Year }}
     · <a href="{{ "index.xml" | relURL }}">RSS</a>
     · <a href="https://github.com/andyamygto/hsu_andy">source</a>
   </footer>

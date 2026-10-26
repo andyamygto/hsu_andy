@@ -1,0 +1,6 @@
+{{- /* Turn a path from the CMS ("/uploads/x.png") or a full URL into a working link. */ -}}
+{{- $url := . -}}
+{{- if not (or (hasPrefix . "http://") (hasPrefix . "https://")) -}}
+  {{- $url = strings.TrimPrefix "/" . | relURL -}}
+{{- end -}}
+{{- return $url -}}

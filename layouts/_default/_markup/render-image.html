@@ -1,0 +1,28 @@
+{{- /*
+  ![caption](x.png) finds x.png next to the page, then in static/uploads/.
+  A path from the CMS (/uploads/x.png) or a full URL also works.
+  An image on its own line becomes a figure with the alt text as caption.
+*/ -}}
+{{- $dest := .Destination -}}
+{{- $src := $dest -}}
+{{- $u := urls.Parse $dest -}}
+{{- if not $u.IsAbs -}}
+  {{- $res := .PageInner.Resources.Get $u.Path -}}
+  {{- if $res -}}
+    {{- $src = $res.RelPermalink -}}
+  {{- else if hasPrefix $u.Path "/" -}}
+    {{- $src = partial "asset-url.html" $u.Path -}}
+  {{- else if fileExists (printf "static/uploads/%s" $u.Path) -}}
+    {{- $src = printf "uploads/%s" $u.Path | relURL -}}
+  {{- end -}}
+{{- end -}}
+{{- if .IsBlock -}}
+<figure>
+  <img src="{{ $src }}" alt="{{ .PlainText }}" loading="lazy">
+  {{- with .Title | default .Text }}
+  <figcaption>{{ . | safeHTML }}</figcaption>
+  {{- end }}
+</figure>
+{{- else -}}
+<img src="{{ $src }}" alt="{{ .PlainText }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="lazy">
+{{- end -}}

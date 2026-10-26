@@ -3,5 +3,3 @@ resources/_gen/
 .hugo_build.lock
 .DS_Store
 
-# private drafts, only on your own machine
-drafts/

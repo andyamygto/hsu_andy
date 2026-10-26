@@ -1,0 +1,156 @@
+# Pages CMS (https://app.pagescms.org): edit this site in the browser.
+
+media:
+  input: static/uploads
+  output: /uploads
+  categories: [image, document]
+
+settings:
+  content:
+    merge: true
+
+content:
+  - name: profile
+    label: 個人資料
+    type: file
+    path: data/profile.yaml
+    fields:
+      - { name: name, label: 名字, type: string }
+      - { name: tagline, label: 名字下方那一行, type: string }
+      - { name: email, label: Email, type: string }
+      - { name: scholar, label: Google Scholar 網址, type: string }
+      - { name: orcid, label: ORCID 網址, type: string }
+      - { name: github, label: GitHub 網址, type: string }
+      - name: cv
+        label: CV（PDF）
+        description: 上傳後，選單和首頁會出現 CV 連結。
+        type: file
+
+  - name: home
+    label: 首頁介紹
+    type: file
+    path: content/_index.md
+    fields:
+      - { name: title, type: string, hidden: true }
+      - name: body
+        label: 首頁的自我介紹
+        type: code
+
+  - name: research
+    label: 研究主題
+    description: 首頁 Research 區塊，依這裡的順序顯示。
+    type: file
+    path: data/research.yaml
+    list: true
+    fields:
+      - { name: title, label: 主題, type: string, required: true }
+      - name: summary
+        label: 說明
+        description: 可以用 Markdown 連結 [文字](網址) 和數學 $...$。
+        type: code
+      - { name: image, label: 圖, type: image }
+      - { name: caption, label: 圖說, type: string }
+
+  - name: publications
+    label: 論文
+    type: file
+    path: data/publications.yaml
+    list: true
+    fields:
+      - { name: title, label: 標題, type: string, required: true }
+      - name: authors
+        label: 作者
+        description: "照論文的順序。C.-E. Hsu 會自動變粗體。"
+        type: string
+      - { name: venue, label: "期刊、卷、頁（或 arXiv preprint）", type: string }
+      - { name: year, label: 年份, type: number }
+      - { name: doi, label: "DOI（只填 10.xxxx/...）", type: string }
+      - { name: arxiv, label: "arXiv 編號（例如 2411.07427）", type: string }
+      - { name: selected, label: 列在首頁, type: boolean }
+
+  - name: notes
+    label: 筆記
+    type: collection
+    path: content/notes
+    filename: "{fields.slug}/index.md"
+    exclude: [_index.md]
+    view:
+      node: index.md
+      fields: [title, topic, date, draft]
+      primary: title
+      sort: [date, title]
+      default: { sort: date, order: desc }
+    fields:
+      - { name: title, label: 標題, type: string, required: true }
+      - name: slug
+        label: 網址名稱
+        description: "英文小寫、數字和 -，例如 gw-plasmon-pole。建立後不要改。"
+        type: string
+        required: true
+        pattern: { regex: "^[a-z0-9][a-z0-9-]*$", message: "只能用英文小寫、數字和 -" }
+      - { name: date, label: 日期, type: date }
+      - { name: topic, label: 分類, description: "例如 GW、BSE、Electron–phonon。筆記頁依這個分組。", type: string }
+      - { name: tags, label: 標籤, type: string, list: true }
+      - name: draft
+        label: 草稿
+        description: 勾選時不會出現在網站上（但 GitHub 上看得到原始檔）。
+        type: boolean
+        default: true
+      - name: body
+        label: 內文
+        description: "Markdown。數學用 $...$ 或 $$...$$；區塊用 > [!def] 標題。"
+        type: code
+      - name: figures
+        label: 圖
+        description: 上傳的圖會依序顯示在文末。想放在文中，就在內文寫 ![圖說](檔名)。
+        type: object
+        list: true
+        fields:
+          - { name: image, label: 圖檔, type: image }
+          - { name: caption, label: 圖說, type: string }
+      - name: attachments
+        label: 附件
+        description: PDF 等檔案，會列在文末。只有附件、沒有內文時，PDF 直接顯示在頁面上。
+        type: file
+        list: true
+
+  - name: posts
+    label: 文章
+    type: collection
+    path: content/posts
+    filename: "{fields.slug}/index.md"
+    exclude: [_index.md]
+    view:
+      node: index.md
+      fields: [title, date, draft]
+      primary: title
+      sort: [date, title]
+      default: { sort: date, order: desc }
+    fields:
+      - { name: title, label: 標題, type: string, required: true }
+      - name: slug
+        label: 網址名稱
+        description: "英文小寫、數字和 -。建立後不要改。"
+        type: string
+        required: true
+        pattern: { regex: "^[a-z0-9][a-z0-9-]*$", message: "只能用英文小寫、數字和 -" }
+      - { name: date, label: 日期, type: date }
+      - { name: tags, label: 標籤, type: string, list: true }
+      - { name: draft, label: 草稿, type: boolean, default: true }
+      - { name: body, label: 內文, type: code }
+      - name: figures
+        label: 圖
+        type: object
+        list: true
+        fields:
+          - { name: image, label: 圖檔, type: image }
+          - { name: caption, label: 圖說, type: string }
+      - { name: attachments, label: 附件, type: file, list: true }
+
+  - name: about
+    label: About 頁
+    type: file
+    path: content/about.md
+    fields:
+      - { name: title, type: string, hidden: true }
+      - { name: body, label: 內容, type: code }

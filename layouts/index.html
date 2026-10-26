@@ -1,16 +1,39 @@
 {{ define "main" }}
+{{- $me := site.Data.profile }}
 <section class="intro">
-  <h1>{{ site.Params.name }}</h1>
-  <p class="tagline">{{ site.Params.tagline }}</p>
+  <h1>{{ $me.name }}</h1>
+  <p class="tagline">{{ $me.tagline }}</p>
   <p class="links">
-    <a href="mailto:{{ site.Params.email }}">email</a> /
-    {{- if fileExists "static/files/cv.pdf" }} <a href="{{ "files/cv.pdf" | relURL }}">cv</a> /{{ end }}
-    <a href="{{ site.Params.scholar }}">scholar</a> /
-    <a href="{{ site.Params.orcid }}">orcid</a> /
-    <a href="{{ site.Params.github }}">github</a>
+    <a href="mailto:{{ $me.email }}">email</a> /
+    {{- with $me.cv }} <a href="{{ partial "asset-url.html" . }}">cv</a> /{{ end }}
+    <a href="{{ $me.scholar }}">scholar</a> /
+    <a href="{{ $me.orcid }}">orcid</a> /
+    <a href="{{ $me.github }}">github</a>
   </p>
   <div class="prose">{{ .Content }}</div>
 </section>
+
+{{- with site.Data.research }}
+<section>
+  <h2>Research</h2>
+  {{- range . }}
+  <div class="topic{{ if .image }} with-image{{ end }}">
+    {{- if .image }}
+    <figure class="topic-fig">
+      <img src="{{ partial "asset-url.html" .image }}" alt="{{ .caption | default .title }}" loading="lazy">
+      {{- with .caption }}
+      <figcaption>{{ . | $.RenderString }}</figcaption>
+      {{- end }}
+    </figure>
+    {{- end }}
+    <div>
+      <h3>{{ .title }}</h3>
+      {{ $.RenderString (dict "display" "block") .summary }}
+    </div>
+  </div>
+  {{- end }}
+</section>
+{{- end }}
 
 <section>
   <h2>Selected publications</h2>
