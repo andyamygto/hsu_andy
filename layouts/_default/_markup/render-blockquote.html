@@ -1,0 +1,37 @@
+{{- /*
+  Blocks:  > [!def] optional title
+           > content
+  A "-" after the bracket ( > [!derive]- ) makes the block folded by default,
+  a "+" makes it foldable but open.
+*/ -}}
+{{- $labels := dict
+  "def" "定義"
+  "result" "結果"
+  "derive" "推導"
+  "param" "參數"
+  "warn" "注意"
+  "idea" "想法"
+  "todo" "待辦"
+  "ref" "參考"
+  "note" "註"
+-}}
+{{- if eq .Type "alert" }}
+  {{- $type := .AlertType }}
+  {{- $label := index $labels $type | default $type }}
+  {{- $title := .AlertTitle }}
+  {{- if .AlertSign }}
+<details class="block block-{{ $type }}"{{ if eq .AlertSign "+" }} open{{ end }}>
+  <summary><span class="block-label">{{ $label }}</span>{{ with $title }} {{ . }}{{ end }}</summary>
+  {{ .Text }}
+</details>
+  {{- else }}
+<div class="block block-{{ $type }}">
+  <p class="block-head"><span class="block-label">{{ $label }}</span>{{ with $title }} {{ . }}{{ end }}</p>
+  {{ .Text }}
+</div>
+  {{- end }}
+{{- else }}
+<blockquote>
+  {{ .Text }}
+</blockquote>
+{{- end }}

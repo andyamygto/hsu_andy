@@ -1,0 +1,25 @@
+{{ define "main" }}
+<section class="intro">
+  <h1>{{ site.Params.name }}</h1>
+  <p class="tagline">{{ site.Params.tagline }}</p>
+  <p class="links">
+    <a href="mailto:{{ site.Params.email }}">email</a> /
+    <a href="{{ site.Params.scholar }}">scholar</a> /
+    <a href="{{ site.Params.orcid }}">orcid</a> /
+    <a href="{{ site.Params.github }}">github</a>
+  </p>
+  {{ .Content }}
+</section>
+
+{{- $recent := where site.RegularPages "Section" "in" (slice "posts" "notes") }}
+<section>
+  <h2>Recent</h2>
+  {{- with first 15 $recent.ByDate.Reverse }}
+  <ul class="entries">
+    {{- range . }}{{ partial "entry.html" (dict "page" . "kind" true) }}{{ end }}
+  </ul>
+  {{- else }}
+  <p class="quiet">Nothing here yet.</p>
+  {{- end }}
+</section>
+{{ end }}

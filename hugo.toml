@@ -1,0 +1,53 @@
+baseURL = "https://andyamygto.github.io/hsu_andy/"
+languageCode = "zh-Hant-TW"
+title = "Andy Hsu"
+hasCJKLanguage = true
+enableGitInfo = true
+enableRobotsTXT = true
+
+[params]
+  name = "Chih-En (Andy) Hsu"
+  tagline = "Condensed matter theory · DFT, GW, BSE, electron–phonon"
+  email = "andyamygto@gmail.com"
+  scholar = "https://scholar.google.com/citations?user=90kC41IAAAAJ"
+  orcid = "https://orcid.org/0000-0002-9974-8611"
+  github = "https://github.com/andyamygto"
+
+
+[menus]
+  [[menus.main]]
+    name = "Posts"
+    pageRef = "/posts"
+    weight = 10
+  [[menus.main]]
+    name = "Notes"
+    pageRef = "/notes"
+    weight = 20
+  [[menus.main]]
+    name = "Publications"
+    pageRef = "/publications"
+    weight = 30
+  [[menus.main]]
+    name = "About"
+    pageRef = "/about"
+    weight = 40
+
+[taxonomies]
+  tag = "tags"
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.goldmark.extensions.passthrough]
+    enable = true
+    [markup.goldmark.extensions.passthrough.delimiters]
+      block = [['\[', '\]'], ['$$', '$$']]
+      inline = [['\(', '\)'], ['$', '$']]
+  [markup.highlight]
+    noClasses = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+[frontmatter]
+  lastmod = ["lastmod", ":git", "date"]

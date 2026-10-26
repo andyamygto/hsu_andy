@@ -1,75 +1,112 @@
-# Academic Pages
-**Academic Pages is a Github Pages template for academic websites.**
+# Andy Hsu — blog & notes
 
-# Getting Started
+網址：<https://andyamygto.github.io/hsu_andy/>
+推到 `master` 之後，GitHub Actions 會自動更新網站，大約一分鐘。
 
-1. Register a GitHub account if you don't have one and confirm your e-mail (required!)
-1. Click the "Use this template" button in the top right.
-1. On the "New repository" page, enter your repository name as "[your GitHub username].github.io", which will also be your website's URL.
-1. Set site-wide configuration and add your content.
-1. Upload any files (like PDFs, .zip files, etc.) to the `files/` directory. They will appear at https://[your GitHub username].github.io/files/example.pdf.
-1. Check status by going to the repository settings, in the "GitHub pages" section
-1. (Optional) Use the Jupyter notebooks or python scripts in the `markdown_generator` folder to generate markdown files for publications and talks from a TSV file.
-
-See more info at https://academicpages.github.io/
-
-## Running locally
-
-When you are initially working your website, it is very useful to be able to preview the changes locally before pushing them to GitHub. To work locally you will need to:
-
-1. Clone the repository and made updates as detailed above.
-1. Make sure you have ruby-dev, bundler, and nodejs installed
-    
-    On most Linux distribution and [Windows Subsystem Linux](https://learn.microsoft.com/en-us/windows/wsl/about) the command is:
-    ```bash
-    sudo apt install ruby-dev ruby-bundler nodejs
-    ```
-    On MacOS the commands are:
-    ```bash
-    brew install ruby
-    brew install node
-    gem install bundler
-    ```
-1. Run `bundle install` to install ruby dependencies. If you get errors, delete Gemfile.lock and try again.
-1. Run `jekyll serve -l -H localhost` to generate the HTML and serve it from `localhost:4000` the local server will automatically rebuild and refresh the pages on change.
-
-If you are running on Linux it may be necessary to install some additional dependencies prior to being able to run locally: `sudo apt install build-essential gcc make`
-
-## Using Docker
-
-Working from a different OS, or just want to avoid installing dependencies? You can use the provided `Dockerfile` to build a container that will run the site for you if you have [Docker](https://www.docker.com/) installed.
-
-Start by build the container:
-
-```bash
-docker build -t jekyll-site .
+```
+content/notes/     整理過的筆記，依 topic 分組
+content/posts/     文章，依日期排列
+content/about.md   About 頁
+data/publications.yaml   論文清單
+data/katex_macros.yaml   LaTeX 巨集
+static/files/      其他要放上網的檔案 → /hsu_andy/files/檔名
 ```
 
-Next, run the container:
-```bash
-docker run -p 4000:4000 --rm -v $(pwd):/usr/src/app jekyll-site
+一篇筆記 = 一個資料夾：
+
+```
+content/notes/gw-plasmon-pole/
+├── index.md     內文
+├── bands.png    圖
+└── deriv.pdf    手寫推導（iPad 匯出的 PDF）
 ```
 
-# Maintenance
-
-Bug reports and feature requests to the template should be [submitted via GitHub](https://github.com/academicpages/academicpages.github.io/issues/new/choose). For questions concerning how to style the template, please feel free to start a [new discussion on GitHub](https://github.com/academicpages/academicpages.github.io/discussions).
-
-This repository was forked (then detached) by [Stuart Geiger](https://github.com/staeiou) from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/), which is © 2016 Michael Rose and released under the MIT License (see LICENSE.md). It is currently being maintained by [Robert Zupko](https://github.com/rjzupkoii) and additional maintainers would be welcomed.
-
-## Bugfixes and enhancements
-
-If you have bugfixes and enhancements that you would like to submit as a pull request, you will need to [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) this repository as opposed to using it as a template. This will also allow you to [synchronize your copy](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) of template to your fork as well.
-
-Unfortunately, one logistical issue with a template theme like Academic Pages that makes it a little tricky to get bug fixes and updates to the core theme. If you use this template and customize it, you will probably get merge conflicts if you attempt to synchronize. If you want to save your various .yml configuration files and markdown files, you can delete the repository and fork it again. Or you can manually patch.
+`content/notes/example-note/` 是完整範例（草稿，不會公開），直接打開對照最快。
 
 ---
-<div align="center">
-    
-![pages-build-deployment](https://github.com/academicpages/academicpages.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)
-[![GitHub contributors](https://img.shields.io/github/contributors/academicpages/academicpages.github.io.svg)](https://github.com/academicpages/academicpages.github.io/graphs/contributors)
-[![GitHub release](https://img.shields.io/github/v/release/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io/releases/latest)
-[![GitHub license](https://img.shields.io/github/license/academicpages/academicpages.github.io?color=blue)](https://github.com/academicpages/academicpages.github.io/blob/master/LICENSE)
 
-[![GitHub stars](https://img.shields.io/github/stars/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io)
-[![GitHub forks](https://img.shields.io/github/forks/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io/fork)
-</div>
+## 用 vim 寫
+
+```bash
+bin/new note gw-plasmon-pole "GW plasmon-pole 模型"   # 建立資料夾和開頭，直接用 vim 打開
+# 寫完
+git add -A && git commit -m "GW plasmon-pole 筆記" && git push
+```
+
+`bin/new` 產生的檔案預設是 `draft: true`。要公開時，把那行刪掉。
+
+在 `~/.vimrc` 加一行，就能用縮寫打區塊：
+
+```vim
+source ~/hsu_andy/tools/notes.vim
+```
+
+| 打 | 變成 |
+|---|---|
+| `;def` | `> [!def]` 定義 |
+| `;res` | `> [!result]` 結果 |
+| `;der` | `> [!derive]-` 推導（預設收合） |
+| `;par` | `> [!param]` 參數 |
+| `;warn` | `> [!warn]` 注意 |
+| `;idea` `;todo` `;ref` | 想法、待辦、參考 |
+
+區塊裡按 Enter，下一行會自動補上 `> `。要結束區塊，就在多出來的 `> ` 那行按 `Ctrl-U` 清掉。
+
+## 只需要會這些 Markdown
+
+````markdown
+## 小標題                      ← 兩個 # ；三個 # 是更小的標題
+
+一般段落。空一行就是新段落。
+**粗體**　*斜體*　`程式碼或參數名`
+
+- 條列
+- 條列
+
+$E = mc^2$                     ← 行內數學
+
+$$                             ← 獨立一行的數學
+\Sigma = iGW
+$$
+
+> [!def] 標題                  ← 區塊：第一行寫種類和標題
+> 內容，每一行開頭都是 >
+> 可以放數學、條列、程式碼
+
+> [!derive]- 推導              ← 加 - 預設收合，點了才展開
+
+![圖的說明](bands.png)          ← 圖片，檔案放同一個資料夾
+[下載推導](deriv.pdf)           ← 連結到檔案
+
+```fortran                     ← 程式碼，標上語言就會上色
+do i = 1, n
+end do
+```
+````
+
+數學巨集（`\vb{k}`、`\abs{x}`、`\Tr`、`\dd`、`\expval{x}`）在 `data/katex_macros.yaml`，可以自己加。
+
+## 用 iPad
+
+**手寫推導 → PDF**
+1. 用任何能匯出 PDF 的手寫 app 寫（內建的備忘錄也可以），匯出 PDF 存到「檔案」。
+2. Safari 打開 GitHub 上這個 repo，進到該筆記的資料夾 → **Add file → Upload files**，選 PDF，Commit。
+3. 頁面最下方會自動列出 PDF。如果 `index.md` 只有開頭、沒有內文，PDF 會直接顯示在頁面上。
+
+**在 iPad 上打字**
+- 小修改：在 GitHub 網頁打開檔案，按鉛筆圖示就能編輯。
+- 新的筆記：**Add file → Create new file**，檔名打 `content/notes/資料夾名稱/index.md`，開頭照下面寫：
+
+  ```yaml
+  ---
+  title: "標題"
+  date: 2026-10-26
+  topic: "GW"
+  ---
+  ```
+
+## 其他
+
+- 目錄：有三個以上小標題時自動出現；加 `toc: false` 可以關掉。
+- 本機預覽（要先裝 Hugo）：`hugo server -D`，打開 http://localhost:1313/hsu_andy/
+- 第一次上線（只做一次）：Settings → Pages → Source 選 **GitHub Actions**。

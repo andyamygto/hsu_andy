@@ -1,0 +1,63 @@
+# Publications, newest first. Rendered on /publications/.
+#   authors : "C.-E. Hsu" is set in bold automatically
+#   doi     : bare DOI (leave empty if unsure)
+#   arxiv   : bare arXiv id
+# Lines marked "# CHECK" still need the full author list or DOI.
+
+- title: "Enabling large language model agents for high-fidelity many-body perturbation theory calculations"
+  authors: "B. Zhang, B. Lee, Z. Zhu, C.-E. Hsu, Z. Zheng, H.-C. Hsueh, Y. W. Choi, M. Del Ben, Z. Li"
+  venue: "arXiv preprint"
+  year: 2026
+  arxiv: "2610.20779"
+
+- title: "Theory of <i>ab initio</i> downfolding with arbitrary-range electron–phonon coupling"
+  authors: "N. M. Tubman, C. J. N. Coveney, C.-E. Hsu, A. Montoya-Castillo, M. R. Filip, J. B. Neaton, Z. Li, V. Vlček, A. M. Alvertis"
+  venue: "Phys. Rev. B 113, 245144"
+  year: 2026
+  doi: "10.1103/7hqv-hn2v"
+  arxiv: "2502.00103"
+
+- title: "Diverse manifestations of electron–phonon coupling in a kagome superconductor"
+  authors: "J.-Y. You, C.-E. Hsu, M. Del Ben, Z. Li"
+  venue: "Phys. Rev. Lett. 134, 106401"
+  year: 2025
+  doi: "10.1103/PhysRevLett.134.106401"
+  arxiv: "2411.07427"
+
+- title: "Phonon-mediated electron attraction in SrTiO<sub>3</sub> via the generalized Fröhlich and deformation potential mechanisms"
+  authors: "C. J. N. Coveney, N. M. Tubman, C.-E. Hsu, A. Montoya-Castillo, M. R. Filip, J. B. Neaton, Z. Li, V. Vlček, A. M. Alvertis"
+  venue: "arXiv preprint"
+  year: 2025
+  arxiv: "2501.17230"
+
+- title: "The growing charge-density-wave order in CuTe lightens and speeds up electrons"
+  authors: "I-T. Wang, T.-L. Chou, C.-E. Hsu, Z. Lei, L.-M. Wang, P.-H. Lin, C.-W. Luo, C.-W. Chen, C.-N. Kuo, C. S. Lue, C.-H. Chen, H.-C. Hsueh, M.-W. Chu"
+  venue: "Nat. Commun. 15, 9345"
+  year: 2024
+  doi: "10.1038/s41467-024-53653-z"
+
+- title: "Three-dimensional ultrafast charge-density-wave dynamics in CuTe"
+  authors: "N. N. Quyen, W.-Y. Tzeng, C.-E. Hsu, <i>et al.</i>"  # CHECK: full 25-author list and order
+  venue: "Nat. Commun. 15, 2386"
+  year: 2024
+  doi: "10.1038/s41467-024-46615-y"
+
+- title: "Atomically thin metallic Si and Ge allotropes with high Fermi velocities"
+  authors: "C.-E. Hsu, Y.-T. Lee, <i>et al.</i>"  # CHECK: full author list
+  venue: "Phys. Rev. B 107, 115410"
+  year: 2023
+  doi: "10.1103/PhysRevB.107.115410"
+  arxiv: "2207.06669"
+
+- title: "Structural, opto-electrical, and band-edge properties of full-series multilayer SnS<sub>1−x</sub>Se<sub>x</sub> (0 ≤ x ≤ 1) compounds with strong in-plane anisotropy"
+  authors: "T. M. Herninda, C.-E. Hsu, H.-C. Hsueh, C.-H. Ho"
+  venue: "Mater. Today Adv. 18, 100379"
+  year: 2023
+  doi: ""  # CHECK: add DOI from the publisher page
+
+- title: "Partitioning interatomic force constants for first-principles phonon calculations: applications to NaCl, PbTiO<sub>3</sub>, monolayer CrI<sub>3</sub>, and twisted bilayer graphene"
+  authors: "C.-C. Lee, C.-E. Hsu, H.-C. Hsueh"
+  venue: "J. Phys.: Condens. Matter 33, 055902"
+  year: 2021
+  doi: ""  # CHECK: add DOI from the publisher page
+  arxiv: "2003.13344"

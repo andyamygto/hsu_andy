@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 160" width="320" height="160">
+  <rect width="320" height="160" fill="#fff"/>
+  <path d="M20 140 Q160 -40 300 140" fill="none" stroke="#1d1d1b" stroke-width="2"/>
+  <path d="M20 20 Q160 200 300 20" fill="none" stroke="#9a3412" stroke-width="2"/>
+  <line x1="20" y1="80" x2="300" y2="80" stroke="#999" stroke-dasharray="4 4"/>
+  <text x="304" y="84" font-family="serif" font-size="12">E<tspan font-size="9" dy="3">F</tspan></text>
+</svg>
